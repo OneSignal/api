@@ -1150,9 +1150,14 @@
         ]
       },
       "OutcomesData": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/OutcomeData"
+        "type": "object",
+        "properties":{
+          "outcomes": {
+            "type":"array",
+            "items": {
+              "$ref": "#/components/schemas/OutcomeData"
+            }
+          }
         }
       },
       "Filter": {
