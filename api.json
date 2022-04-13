@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.0.1",
+    "version": "1.0.2",
     "title": "OneSignal",
     "description": "A powerful way to send personalized messages at scale and build effective customer engagement strategies. Learn more at onesignal.com",
     "contact": {
@@ -1151,9 +1151,9 @@
       },
       "OutcomesData": {
         "type": "object",
-        "properties":{
+        "properties": {
           "outcomes": {
-            "type":"array",
+            "type": "array",
             "items": {
               "$ref": "#/components/schemas/OutcomeData"
             }
@@ -1386,6 +1386,40 @@
             }
           }
         }
+      },
+      "InvalidIdentifierError": {
+        "type": "object",
+        "properties": {
+          "invalid_external_user_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Returned if using include_external_user_ids"
+          },
+          "invalid_player_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Returned if using include_player_ids and some were valid and others were not."
+          }
+        }
+      },
+      "NoSubscribersError": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Returned if no subscribed players.\n"
+      },
+      "Notification200Errors": {
+        "oneOf": [{
+          "$ref": "#/components/schemas/InvalidIdentifierError"
+        },
+        {
+          "$ref": "#/components/schemas/NoSubscribersError"
+        }]
       }
     }
   },
@@ -1489,34 +1523,7 @@
                       "type": "string"
                     },
                     "errors": {
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "invalid_external_user_ids": {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              },
-                              "description": "Returned if using include_external_user_ids and some were valid and others were not.\nIf multiple devices or the same device with multiple player ids gets the same external_user_id,\nthen this indicates how many were unsubscribed.\nMore details on why the same device might have multiple records here: https://documentation.onesignal.com/docs/player-id\n"
-                            },
-                            "invalid_player_ids": {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              },
-                              "description": "Returned if using include_player_ids and some were valid and others were not.\nPlease process these on your server and remove them from your database if you are tracking them.\n"
-                            }
-                          }
-                        },
-                        {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          },
-                          "description": "Returned if no subscribed players.\n"
-                        }
-                      ]
+                      "$ref": "#/components/schemas/Notification200Errors"
                     }
                   },
                   "required": [
