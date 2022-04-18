@@ -1149,17 +1149,6 @@
           "aggregation"
         ]
       },
-      "OutcomesData": {
-        "type": "object",
-        "properties": {
-          "outcomes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OutcomeData"
-            }
-          }
-        }
-      },
       "Filter": {
         "type": "object",
         "properties": {
@@ -1386,40 +1375,6 @@
             }
           }
         }
-      },
-      "InvalidIdentifierError": {
-        "type": "object",
-        "properties": {
-          "invalid_external_user_ids": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "Returned if using include_external_user_ids"
-          },
-          "invalid_player_ids": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "Returned if using include_player_ids and some were valid and others were not."
-          }
-        }
-      },
-      "NoSubscribersError": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "description": "Returned if no subscribed players.\n"
-      },
-      "Notification200Errors": {
-        "oneOf": [{
-          "$ref": "#/components/schemas/InvalidIdentifierError"
-        },
-        {
-          "$ref": "#/components/schemas/NoSubscribersError"
-        }]
       }
     }
   },
@@ -1523,7 +1478,34 @@
                       "type": "string"
                     },
                     "errors": {
-                      "$ref": "#/components/schemas/Notification200Errors"
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "invalid_external_user_ids": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "description": "Returned if using include_external_user_ids and some were valid and others were not.\nIf multiple devices or the same device with multiple player ids gets the same external_user_id,\nthen this indicates how many were unsubscribed.\nMore details on why the same device might have multiple records here: https://documentation.onesignal.com/docs/player-id\n"
+                            },
+                            "invalid_player_ids": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "description": "Returned if using include_player_ids and some were valid and others were not.\nPlease process these on your server and remove them from your database if you are tracking them.\n"
+                            }
+                          }
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "description": "Returned if no subscribed players.\n"
+                        }
+                      ]
                     }
                   },
                   "required": [
@@ -1597,7 +1579,10 @@
                       "$ref": "#/components/schemas/DeliveryData"
                     },
                     {
-                      "$ref": "#/components/schemas/OutcomesData"
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/OutcomeData"
+                      }
                     },
                     {
                       "type": "object",
@@ -2245,7 +2230,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OutcomesData"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OutcomeData"
+                  }
                 }
               }
             }
