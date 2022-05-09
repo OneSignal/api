@@ -28,7 +28,7 @@ function bootstrap_linux() {
 
   echo "installing dependencies"
   sudo apt install \
-    node
+    nodejs
 }
 
 if [[ "$(uname)" = "Darwin" ]]; then
