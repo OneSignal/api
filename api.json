@@ -1716,10 +1716,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/App"
-                  }
+                  "$ref": "#/components/schemas/Apps"
                 }
               }
             }
