@@ -2517,7 +2517,7 @@
                   "type": "object",
                   "properties": {
                     "success": {
-                      "type": "string"
+                      "type": "boolean"
                     }
                   }
                 }
