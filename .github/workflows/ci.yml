@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: "[Setup] Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+      - name: "[Setup] Bootstrap"
+        run: script/bootstrap
+      - name: "[Test] Linting"
+        run: script/test
