@@ -362,51 +362,61 @@
                 "type": "boolean",
                 "default": true,
                 "description": "Indicates whether to send to all devices registered under your app's Apple iOS platform.",
-                "writeOnly": true
+                "writeOnly": true,
+                "nullable": true
               },
               "isAndroid": {
                 "type": "boolean",
                 "description": "Indicates whether to send to all devices registered under your app's Google Android platform.",
-                "writeOnly": true
+                "writeOnly": true,
+                "nullable": true
               },
               "isHuawei": {
                 "type": "boolean",
                 "description": "Indicates whether to send to all devices registered under your app's Huawei Android platform.",
-                "writeOnly": true
+                "writeOnly": true,
+                "nullable": true
               },
               "isAnyWeb": {
                 "type": "boolean",
                 "description": "Indicates whether to send to all subscribed web browser users, including Chrome, Firefox, and Safari.\nYou may use this instead as a combined flag instead of separately enabling isChromeWeb, isFirefox, and isSafari, though the three options are equivalent to this one.\n",
-                "writeOnly": true
+                "writeOnly": true,
+                "nullable": true
               },
               "isChromeWeb": {
                 "type": "boolean",
                 "writeOnly": true,
+                "nullable": true,
                 "description": "Indicates whether to send to all Google Chrome, Chrome on Android, and Mozilla Firefox users registered under your Chrome & Firefox web push platform."
               },
               "isFirefox": {
                 "type": "boolean",
                 "writeOnly": true,
+                "nullable": true,
                 "description": "Indicates whether to send to all Mozilla Firefox desktop users registered under your Firefox web push platform."
               },
               "isSafari": {
                 "type": "boolean",
                 "writeOnly": true,
+                "nullable": true,
                 "description": "Does not support iOS Safari. Indicates whether to send to all Apple's Safari desktop users registered under your Safari web push platform. Read more iOS Safari"
               },
               "isWP_WNS": {
                 "type": "boolean",
                 "writeOnly": true,
+                "nullable": true,
                 "description": "Indicates whether to send to all devices registered under your app's Windows platform."
               },
               "isAdm": {
                 "type": "boolean",
                 "writeOnly": true,
+                "nullable": true,
                 "description": "Indicates whether to send to all devices registered under your app's Amazon Fire platform."
               },
               "isChrome": {
                 "type": "boolean",
                 "writeOnly": true,
+                "nullable": true,
                 "description": "This flag is not used for web push Please see isChromeWeb for sending to web push users. This flag only applies to Google Chrome Apps & Extensions.\nIndicates whether to send to all devices registered under your app's Google Chrome Apps & Extension platform.\n"
               },
               "channel_for_external_user_ids": {
@@ -494,7 +504,8 @@
               "content_available": {
                 "type": "boolean",
                 "description": "Channel: Push Notifications\nPlatform: iOS\nSending true wakes your app from background to run custom native code (Apple interprets this as content-available=1). Note: Not applicable if the app is in the \"force-quit\" state (i.e app was swiped away). Omit the contents field to prevent displaying a visible notification.\n",
-                "writeOnly": true
+                "writeOnly": true,
+                "nullable": true
               },
               "mutable_content": {
                 "type": "boolean",
@@ -688,10 +699,12 @@
               "android_visibility": {
                 "type": "integer",
                 "description": "Channel: Push Notifications\nPlatform: Android 5.0_\n&#9888;&#65039;Deprecated, this field doesn't work on Android 8 (Oreo) and newer devices!\nPlease use Notification Categories / Channels noted above instead to support ALL versions of Android.\n1 = Public (default) (Shows the full message on the lock screen unless the user has disabled all notifications from showing on the lock screen. Please consider the user and mark private if the contents are.)\n0 = Private (Hides message contents on lock screen if the user set \"Hide sensitive notification content\" in the system settings)\n-1 = Secret (Notification does not show on the lock screen at all)\n",
-                "writeOnly": true
+                "writeOnly": true,
+                "nullable": true
               },
               "huawei_visibility": {
                 "type": "integer",
+                "nullable": true,
                 "description": "Channel: Push Notifications\nPlatform: Huawei\n&#9888;&#65039;Deprecated, this field ONLY works on EMUI 5 (Android 7 based) and older devices.\nPlease also set Notification Categories / Channels noted above to support EMUI 8 (Android 8 based) devices.\n1 = Public (default) (Shows the full message on the lock screen unless the user has disabled all notifications from showing on the lock screen. Please consider the user and mark private if the contents are.)\n0 = Private (Hides message contents on lock screen if the user set \"Hide sensitive notification content\" in the system settings)\n-1 = Secret (Notification does not show on the lock screen at all)\n",
                 "writeOnly": true
               },
@@ -702,6 +715,7 @@
               },
               "ios_badgeCount": {
                 "type": "integer",
+                "nullable": true,
                 "description": "Channel: Push Notifications\nPlatform: iOS\nUsed with ios_badgeType, describes the value to set or amount to increase/decrease your app's iOS badge count by.\nYou can use a negative number to decrease the badge count when used with an ios_badgeType of Increase.\n",
                 "writeOnly": true
               },
@@ -721,6 +735,7 @@
               },
               "send_after": {
                 "type": "string",
+                "format": "date-time",
                 "description": "Channel: All\nSchedule notification for future delivery. API defaults to UTC -1100\nExamples: All examples are the exact same date & time.\n\"Thu Sep 24 2015 14:00:00 GMT-0700 (PDT)\"\n\"September 24th 2015, 2:00:00 pm UTC-07:00\"\n\"2015-09-24 14:00:00 GMT-0700\"\n\"Sept 24 2015 14:00:00 GMT-0700\"\n\"Thu Sep 24 2015 14:00:00 GMT-0700 (Pacific Daylight Time)\"\nNote: SMS currently only supports send_after parameter.\n",
                 "writeOnly": true
               },
@@ -736,11 +751,13 @@
               },
               "ttl": {
                 "type": "integer",
+                "nullable": true,
                 "description": "Channel: Push Notifications\nPlatform: iOS, Android, Chrome, Firefox, Safari, ChromeWeb\nTime To Live - In seconds. The notification will be expired if the device does not come back online within this time. The default is 259,200 seconds (3 days).\nMax value to set is 2419200 seconds (28 days).\n",
                 "writeOnly": true
               },
               "priority": {
                 "type": "integer",
+                "nullable": true,
                 "description": "Channel: Push Notifications\nPlatform: Android, Chrome, ChromeWeb\nDelivery priority through the push server (example GCM/FCM). Pass 10 for high priority or any other integer for normal priority. Defaults to normal priority for Android and high for iOS. For Android 6.0+ devices setting priority to high will wake the device out of doze mode.\n",
                 "writeOnly": true
               },
@@ -828,6 +845,73 @@
             "required": [
               "app_id"
             ]
+          }
+        ]
+      },
+      "NotificationWithMeta": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Notification"
+          },
+          {
+            "$ref": "#/components/schemas/DeliveryData"
+          },
+          {
+            "$ref": "#/components/schemas/OutcomesData"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "remaining": {
+                "type": "integer",
+                "description": "Number of notifications that have not been sent out yet. This can mean either our system is still processing the notification or you have delayed options set."
+              },
+              "successful": {
+                "type": "integer",
+                "description": "Number of notifications that were successfully delivered."
+              },
+              "failed": {
+                "type": "integer",
+                "description": "Number of notifications that could not be delivered due to those devices being unsubscribed."
+              },
+              "errored": {
+                "type": "integer",
+                "description": "Number of notifications that could not be delivered due to an error. You can find more information by viewing the notification in the dashboard."
+              },
+              "converted": {
+                "type": "integer",
+                "description": "Number of users who have clicked / tapped on your notification."
+              },
+              "queued_at": {
+                "type": "integer",
+                "format": "int64",
+                "description": "Unix timestamp indicating when the notification was created."
+              },
+              "send_after": {
+                "type": "integer",
+                "format": "int64",
+                "description": "Unix timestamp indicating when notification delivery should begin."
+              },
+              "completed_at": {
+                "type": "integer",
+                "format": "int64",
+                "nullable": true,
+                "description": "Unix timestamp indicating when notification delivery completed. The delivery duration from start to finish can be calculated with completed_at - send_after."
+              },
+              "platform_delivery_stats": {
+                "$ref": "#/components/schemas/PlatformDeliveryData"
+              },
+              "received": {
+                "type": "integer",
+                "nullable": true,
+                "description": "Confirmed Deliveries number of devices that received the push notification. Paid Feature Only. Free accounts will see 0."
+              },
+              "throttle_rate_per_minute": {
+                "type": "integer",
+                "nullable": true,
+                "description": "number of push notifications sent per minute. Paid Feature Only. If throttling is not enabled for the app or the notification, and for free accounts, null is returned. Refer to Throttling for more details."
+              }
+            }
           }
         ]
       },
@@ -1029,15 +1113,6 @@
             "type": "string",
             "description": "Text in Vietnamese."
           }
-        },
-        "required": [
-          "en"
-        ]
-      },
-      "Notifications": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/Notification"
         }
       },
       "NotificationSlice": {
@@ -1055,7 +1130,7 @@
           "notifications": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Notification"
+              "$ref": "#/components/schemas/NotificationWithMeta"
             }
           }
         }
@@ -1088,19 +1163,24 @@
         "type": "object",
         "properties": {
           "successful": {
-            "type": "integer"
+            "type": "integer",
+            "nullable": true
           },
           "failed": {
-            "type": "integer"
+            "type": "integer",
+            "nullable": true
           },
           "errored": {
-            "type": "integer"
+            "type": "integer",
+            "nullable": true
           },
           "converted": {
-            "type": "integer"
+            "type": "integer",
+            "nullable": true
           },
           "received": {
-            "type": "integer"
+            "type": "integer",
+            "nullable": true
           }
         }
       },
@@ -1284,6 +1364,7 @@
           },
           "timezone": {
             "type": "integer",
+            "nullable": true,
             "description": "Number of seconds away from UTC. Example: -28800\n"
           },
           "game_version": {
@@ -1320,10 +1401,12 @@
           },
           "created_at": {
             "type": "integer",
+            "format": "int64",
             "description": "Unixtime when the player joined the game"
           },
           "playtime": {
             "type": "integer",
+            "format": "int64",
             "description": "Seconds player was running your app."
           },
           "badge_count": {
@@ -1340,6 +1423,7 @@
           },
           "test_type": {
             "type": "integer",
+            "nullable": true,
             "description": "This is used in deciding whether to use your iOS Sandbox or Production push certificate when sending a push when both have been uploaded. Set to the iOS provisioning profile that was used to build your app.\n1 = Development\n2 = Ad-Hoc\nOmit this field for App Store builds.\n"
           },
           "long": {
@@ -1356,7 +1440,6 @@
           }
         },
         "required": [
-          "app_id",
           "device_type",
           "id"
         ]
@@ -1409,7 +1492,8 @@
       "NoSubscribersError": {
         "type": "array",
         "items": {
-          "type": "string"
+          "type": "string",
+          "format": "string"
         },
         "description": "Returned if no subscribed players.\n"
       },
@@ -1443,7 +1527,7 @@
             "in": "query",
             "name": "limit",
             "schema": {
-              "type": "string"
+              "type": "integer"
             },
             "required": false,
             "description": "How many notifications to return.  Max is 50.  Default is 50."
@@ -1589,65 +1673,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/Notification"
-                    },
-                    {
-                      "$ref": "#/components/schemas/DeliveryData"
-                    },
-                    {
-                      "$ref": "#/components/schemas/OutcomesData"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "remaining": {
-                          "type": "integer",
-                          "description": "Number of notifications that have not been sent out yet. This can mean either our system is still processing the notification or you have delayed options set."
-                        },
-                        "successful": {
-                          "type": "integer",
-                          "description": "Number of notifications that were successfully delivered."
-                        },
-                        "failed": {
-                          "type": "integer",
-                          "description": "Number of notifications that could not be delivered due to those devices being unsubscribed."
-                        },
-                        "errored": {
-                          "type": "integer",
-                          "description": "Number of notifications that could not be delivered due to an error. You can find more information by viewing the notification in the dashboard."
-                        },
-                        "converted": {
-                          "type": "integer",
-                          "description": "Number of users who have clicked / tapped on your notification."
-                        },
-                        "queued_at": {
-                          "type": "integer",
-                          "description": "Unix timestamp indicating when the notification was created."
-                        },
-                        "send_after": {
-                          "type": "integer",
-                          "description": "Unix timestamp indicating when notification delivery should begin."
-                        },
-                        "completed_at": {
-                          "type": "integer",
-                          "description": "Unix timestamp indicating when notification delivery completed. The delivery duration from start to finish can be calculated with completed_at - send_after."
-                        },
-                        "platform_delivery_stats": {
-                          "$ref": "#/components/schemas/PlatformDeliveryData"
-                        },
-                        "received": {
-                          "type": "integer",
-                          "description": "Confirmed Deliveries number of devices that received the push notification. Paid Feature Only. Free accounts will see 0."
-                        },
-                        "throttle_rate_per_minute": {
-                          "type": "integer",
-                          "description": "number of push notifications sent per minute. Paid Feature Only. If throttling is not enabled for the app or the notification, and for free accounts, null is returned. Refer to Throttling for more details."
-                        }
-                      }
-                    }
-                  ]
+                  "$ref": "#/components/schemas/NotificationWithMeta"
                 }
               }
             }
@@ -1690,7 +1716,7 @@
                   "type": "object",
                   "properties": {
                     "success": {
-                      "type": "string"
+                      "type": "boolean"
                     }
                   }
                 }
@@ -1716,7 +1742,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/Apps"
                 }
               }
             }
@@ -1895,7 +1921,7 @@
                   "type": "object",
                   "properties": {
                     "success": {
-                      "type": "string"
+                      "type": "boolean"
                     },
                     "destination_url": {
                       "type": "string"
@@ -2277,7 +2303,7 @@
             "in": "query",
             "name": "limit",
             "schema": {
-              "type": "string"
+              "type": "integer"
             },
             "required": false,
             "description": "How many devices to return. Max is 300. Default is 300"
@@ -2517,7 +2543,7 @@
                   "type": "object",
                   "properties": {
                     "success": {
-                      "type": "string"
+                      "type": "boolean"
                     }
                   }
                 }
