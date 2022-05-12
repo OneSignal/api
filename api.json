@@ -806,7 +806,7 @@
                 "description": "Channel: Push Notifications\nPlatform: iOS 12+\nWhen using thread_id, you can also control the count of the number of notifications in the group. For example, if the group already has 12 notifications, and you send a new notification with summary_arg_count = 2, the new total will be 14 and the summary will be \"14 more notifications from summary_arg\"\n",
                 "writeOnly": true
               },
-              "email_subect": {
+              "email_subject": {
                 "type": "string",
                 "description": "Channel: Email\nRequired.  The subject of the email.\n",
                 "writeOnly": true
