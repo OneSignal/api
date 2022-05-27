@@ -1396,7 +1396,7 @@
             "description": "Custom tags for the player. Only support string and integer key value pairs. Does not support arrays or other nested objects. Setting a tag value to null or an empty string will remove the tag. Example: {\"foo\":\"bar\",\"this\":\"that\"}\nLimitations:\n- 100 tags per call\n- Android SDK users: tags cannot be removed or changed via API if set through SDK sendTag methods.\nRecommended to only tag devices with 1 kilobyte of data\nPlease consider using your own Database to save more than 1 kilobyte of data. See: Internal Database & CRM\n"
           },
           "amount_spent": {
-            "type": "string",
+            "type": "number",
             "description": "Amount the user has spent in USD, up to two decimal places"
           },
           "created_at": {
