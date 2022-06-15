@@ -1501,9 +1501,208 @@
         "oneOf": [{
           "$ref": "#/components/schemas/InvalidIdentifierError"
         },
-        {
-          "$ref": "#/components/schemas/NoSubscribersError"
-        }]
+          {
+            "$ref": "#/components/schemas/NoSubscribersError"
+          }]
+      },
+      "CreateNotificationSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "recipients": {
+            "type": "integer",
+            "description": "Estimated number of subscribers targetted by notification."
+          },
+          "external_id": {
+            "type": "string"
+          },
+          "errors": {
+            "$ref": "#/components/schemas/Notification200Errors"
+          }
+        },
+        "required": [
+          "id",
+          "recipients"
+        ]
+      },
+      "CreateNotificationBadRequestResponse": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "CancelNotificationSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "NotificationHistorySuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "destination_url": {
+            "type": "string"
+          }
+        }
+      },
+      "NotificationHistoryBadRequestResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+
+      "UpdatePlayerTagsSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CreateSegmentSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string",
+            "description": "UUID of created segment"
+          }
+        }
+      },
+      "CreateSegmentBadRequestResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "CreateSegmentConflictResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "DeleteSegmentSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "DeleteSegmentBadRequestResponse": {
+        "type": "object",
+        "properties": {
+          "erorrs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "DeleteSegmentNotFoundResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CreatePlayerSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "DeletePlayerSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "string"
+          }
+        }
+      },
+      "DeletePlayerBadRequestResponse": {
+        "type": "object",
+        "properties": {
+          "erorrs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "DeletePlayerNotFoundResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdatePlayerSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ExportPlayersSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "csv_file_url": {
+            "type": "string"
+          }
+        }
+      },
+      "ExportPlayersBadRequestResponse": {
+        "type": "object"
       }
     }
   },
@@ -1594,26 +1793,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "recipients": {
-                      "type": "integer",
-                      "description": "Estimated number of subscribers targetted by notification."
-                    },
-                    "external_id": {
-                      "type": "string"
-                    },
-                    "errors": {
-                      "$ref": "#/components/schemas/Notification200Errors"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "recipients"
-                  ]
+                  "$ref": "#/components/schemas/CreateNotificationSuccessResponse"
                 }
               }
             }
@@ -1623,15 +1803,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/CreateNotificationBadRequestResponse"
                 }
               }
             }
@@ -1713,12 +1885,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    }
-                  }
+                  "$ref": "#/components/schemas/CancelNotificationSuccessResponse"
                 }
               }
             }
@@ -1918,15 +2085,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "destination_url": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/NotificationHistorySuccessResponse"
                 }
               }
             }
@@ -1936,18 +2095,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "string"
-                    },
-                    "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/NotificationHistoryBadRequestResponse"
                 }
               }
             }
@@ -2008,12 +2156,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    }
-                  }
+                  "$ref": "#/components/schemas/UpdatePlayerTagsSuccessResponse"
                 }
               }
             }
@@ -2058,16 +2201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "id": {
-                      "type": "string",
-                      "description": "UUID of created segment"
-                    }
-                  }
+                  "$ref": "#/components/schemas/CreateSegmentSuccessResponse"
                 }
               }
             }
@@ -2077,18 +2211,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/CreateSegmentBadRequestResponse"
                 }
               }
             }
@@ -2098,18 +2221,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/CreateSegmentConflictResponse"
                 }
               }
             }
@@ -2153,12 +2265,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    }
-                  }
+                  "$ref": "#/components/schemas/DeleteSegmentSuccessResponse"
                 }
               }
             }
@@ -2168,15 +2275,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "erorrs": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/DeleteSegmentBadRequestResponse"
                 }
               }
             }
@@ -2186,12 +2285,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    }
-                  }
+                  "$ref": "#/components/schemas/DeleteSegmentNotFoundResponse"
                 }
               }
             }
@@ -2356,15 +2450,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "id": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/CreatePlayerSuccessResponse"
                 }
               }
             }
@@ -2408,12 +2494,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/DeletePlayerSuccessResponse"
                 }
               }
             }
@@ -2423,15 +2504,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "erorrs": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/DeletePlayerBadRequestResponse"
                 }
               }
             }
@@ -2441,12 +2514,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/DeletePlayerNotFoundResponse"
                 }
               }
             }
@@ -2540,12 +2608,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    }
-                  }
+                  "$ref": "#/components/schemas/UpdatePlayerSuccessResponse"
                 }
               }
             }
@@ -2607,12 +2670,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "csv_file_url": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/ExportPlayersSuccessResponse"
                 }
               }
             }
@@ -2622,7 +2680,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/ExportPlayersBadRequestResponse"
                 }
               }
             }
