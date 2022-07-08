@@ -350,6 +350,11 @@
                 "type": "integer",
                 "readOnly": true
               },
+              "name": {
+                "type": "string",
+                "description": "Required for SMS Messages.\nAn identifier for tracking message within the OneSignal dashboard or export analytics.\nNot shown to end user.",
+                "writeOnly": true
+              },
               "aggregation": {
                 "type": "string",
                 "enum": [
