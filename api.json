@@ -365,7 +365,6 @@
               },
               "isIos": {
                 "type": "boolean",
-                "default": true,
                 "description": "Indicates whether to send to all devices registered under your app's Apple iOS platform.",
                 "writeOnly": true,
                 "nullable": true
