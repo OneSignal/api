@@ -1160,6 +1160,78 @@
           },
           "ios": {
             "$ref": "#/components/schemas/DeliveryData"
+          },
+          "sms": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DeliveryData"
+              },
+              {
+                "properties": {
+                  "provider_successful": {
+                    "type": "integer",
+                    "description": "Number of messages reported as delivered successfully by the SMS service provider.",
+                    "nullable": true
+                  },
+                  "provider_failed": {
+                    "type": "integer",
+                    "description": "Number of recipients who didn't receive your message as reported by the SMS service provider.",
+                    "nullable": true
+                  },
+                  "provider_errored": {
+                    "type": "integer",
+                    "description": "Number of errors reported by the SMS service provider.",
+                    "nullable": true
+                  }
+                }
+              }
+            ]
+          },
+          "email": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DeliveryData"
+              },
+              {
+                "properties": {
+                  "opened": {
+                    "type": "integer",
+                    "description": "Number of times an email has been opened.",
+                    "nullable": true
+                  },
+                  "unique_opens": {
+                    "type": "integer",
+                    "description": "Number of unique recipients who have opened your email.",
+                    "nullable": true
+                  },
+                  "clicks": {
+                    "type": "integer",
+                    "description": "Number of clicked links from your email. This can include the recipient clicking email links multiple times.",
+                    "nullable": true
+                  },
+                  "unique_clicks": {
+                    "type": "integer",
+                    "description": "Number of unique clicks that your recipients have made on links from your email.",
+                    "nullable": true
+                  },
+                  "bounced": {
+                    "type": "integer",
+                    "description": "Number of recipients who registered as a hard or soft bounce and didn't receive your email.",
+                    "nullable": true
+                  },
+                  "reported_spam": {
+                    "type": "integer",
+                    "description": "Number of recipients who reported this email as spam.",
+                    "nullable": true
+                  },
+                  "unsubscribed": {
+                    "type": "integer",
+                    "description": "Number of recipients who opted out of your emails using the unsubscribe link in this email.",
+                    "nullable": true
+                  }
+                }
+              }
+            ]
           }
         }
       },
@@ -1168,22 +1240,27 @@
         "properties": {
           "successful": {
             "type": "integer",
+            "description": "Number of messages delivered to push servers, mobile carriers, or email service providers.",
             "nullable": true
           },
           "failed": {
             "type": "integer",
+            "description": "Number of messages sent to unsubscribed devices.",
             "nullable": true
           },
           "errored": {
             "type": "integer",
+            "description": "Number of errors reported.",
             "nullable": true
           },
           "converted": {
             "type": "integer",
+            "description": "Number of messages that were clicked.",
             "nullable": true
           },
           "received": {
             "type": "integer",
+            "description": "Number of devices that received the message.",
             "nullable": true
           }
         }
