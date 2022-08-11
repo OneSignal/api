@@ -347,7 +347,7 @@
           }
         ]
       },
-      "Notification": {
+      "BasicNotification": {
         "allOf": [
           {
             "$ref": "#/components/schemas/NotificationTarget"
@@ -361,6 +361,12 @@
               "value": {
                 "type": "integer",
                 "readOnly": true
+              },
+              "name": {
+                "type": "string",
+                "description": "Required for SMS Messages.\nAn identifier for tracking message within the OneSignal dashboard or export analytics.\nNot shown to end user.",
+                "writeOnly": true,
+                "nullable": true
               },
               "aggregation": {
                 "type": "string",
@@ -784,13 +790,6 @@
                 "writeOnly": true,
                 "nullable": true
               },
-              "send_after": {
-                "type": "string",
-                "format": "date-time",
-                "description": "Channel: All\nSchedule notification for future delivery. API defaults to UTC -1100\nExamples: All examples are the exact same date & time.\n\"Thu Sep 24 2015 14:00:00 GMT-0700 (PDT)\"\n\"September 24th 2015, 2:00:00 pm UTC-07:00\"\n\"2015-09-24 14:00:00 GMT-0700\"\n\"Sept 24 2015 14:00:00 GMT-0700\"\n\"Thu Sep 24 2015 14:00:00 GMT-0700 (Pacific Daylight Time)\"\nNote: SMS currently only supports send_after parameter.\n",
-                "writeOnly": true,
-                "nullable": true
-              },
               "delayed_option": {
                 "type": "string",
                 "description": "Channel: All\nPossible values are:\ntimezone (Deliver at a specific time-of-day in each users own timezone)\nlast-active Same as Intelligent Delivery . (Deliver at the same time of day as each user last used your app).\nIf send_after is used, this takes effect after the send_after time has elapsed.\n",
@@ -913,10 +912,29 @@
           }
         ]
       },
+      "Notification": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasicNotification"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "send_after": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Channel: All\nSchedule notification for future delivery. API defaults to UTC -1100\nExamples: All examples are the exact same date & time.\n\"Thu Sep 24 2015 14:00:00 GMT-0700 (PDT)\"\n\"September 24th 2015, 2:00:00 pm UTC-07:00\"\n\"2015-09-24 14:00:00 GMT-0700\"\n\"Sept 24 2015 14:00:00 GMT-0700\"\n\"Thu Sep 24 2015 14:00:00 GMT-0700 (Pacific Daylight Time)\"\nNote: SMS currently only supports send_after parameter.\n",
+                "writeOnly": true,
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
       "NotificationWithMeta": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/Notification"
+            "$ref": "#/components/schemas/BasicNotification"
           },
           {
             "$ref": "#/components/schemas/DeliveryData"
