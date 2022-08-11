@@ -830,6 +830,12 @@
                 "description": "Channel: Email\nThe email address the email is from. If not specified, will default to \"from email\" set in the OneSignal Dashboard Email Settings.\n",
                 "writeOnly": true
               },
+              "email_preheader": {
+                "type": "string",
+                "description": "Channel: Email\nThe preheader text of the email.\nPreheader is the preview text displayed immediately after an email subject that provides additional context about the email content.\nIf not specified, will default to null.\n",
+                "writeOnly": true,
+                "nullable": true
+              },
               "sms_from": {
                 "type": "string",
                 "description": "Channel: SMS\nPhone Number used to send SMS. Should be a registered Twilio phone number in E.164 format.\n",
