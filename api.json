@@ -13,7 +13,7 @@
   },
   "servers": [
     {
-      "url": "https://onesignal.com/api/v1"
+      "url": "{{server}}/api/v1"
     }
   ],
   "components": {
@@ -1609,8 +1609,7 @@
           }
         },
         "required": [
-          "device_type",
-          "id"
+          "device_type"
         ]
       },
       "Players": {
@@ -2826,7 +2825,7 @@
                   },
                   "segment_name": {
                     "type": "string",
-                    "description": "Export al ldevices belonging to the segment."
+                    "description": "Export all devices belonging to the segment."
                   }
                 }
               }
