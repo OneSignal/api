@@ -1681,7 +1681,8 @@
             "description": "Estimated number of subscribers targetted by notification."
           },
           "external_id": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "errors": {
             "$ref": "#/components/schemas/Notification200Errors"
