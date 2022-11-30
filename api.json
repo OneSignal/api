@@ -1621,6 +1621,55 @@
             "$ref": "#/components/schemas/NoSubscribersError"
           }]
       },
+      "UpdateLiveActivityRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Type of live activity",
+            "enum": [
+              "headings",
+              "contents",
+              "ios_sound",
+              "priority_level"
+            ]
+          },
+          "event": {
+            "type": "string",
+            "enum": [
+              "update",
+              "end"
+            ]
+          },
+          "event_updates": {
+            "type": "object"
+          },
+          "dismiss_at": {
+            "type": "number",
+            "description": "Timestamp; only allowed if event is \"end\""
+          }
+        },
+        "required": [
+          "name",
+          "event",
+          "event_updates"
+        ]
+      },
+      "BeginLiveActivityRequest": {
+        "type": "object",
+        "properties": {
+          "push_token": {
+            "type": "string"
+          },
+          "subscription_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "push_token",
+          "subscription_id"
+        ]
+      },
       "CreateNotificationSuccessResponse": {
         "type": "object",
         "properties": {
@@ -1819,6 +1868,18 @@
       },
       "ExportPlayersBadRequestResponse": {
         "type": "object"
+      },
+
+      "UpdateLiveActivitySuccessResponse": {
+        "type": "object",
+        "properties": {
+          "notification_id": {
+            "type": "string"
+          },
+          "errors": {
+            "$ref": "#/components/schemas/Notification200Errors"
+          }
+        }
       }
     }
   },
@@ -2485,6 +2546,153 @@
                 }
               }
             }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      }
+    },
+    "/apps/{app_id}/live_activities/{activity_id}/notifications": {
+      "post": {
+        "operationId": "update_live_activity",
+        "summary": "Update a Live Activity via Push",
+        "description": "Updates a specified live activity.",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "The OneSignal App ID for your app.  Available in Keys & IDs.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "activity_id",
+            "in": "path",
+            "required": true,
+            "description": "Live Activity record ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLiveActivityRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateLiveActivitySuccessResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      }
+    },
+    "/apps/{app_id}/live_activities/{activity_id}/token": {
+      "post": {
+        "operationId": "begin_live_activity",
+        "summary": "Start Live Activity",
+        "description": "Starts a Live Activity",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "The OneSignal App ID for your app.  Available in Keys & IDs.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "activity_id",
+            "in": "path",
+            "required": true,
+            "description": "Live Activity record ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BeginLiveActivityRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      }
+    },
+    "/apps/{app_id}/live_activities/{activity_id}/token/{subscription_id}": {
+      "delete": {
+        "operationId": "end_live_activity",
+        "summary": "Stop Live Activity",
+        "description": "Stops a Live Activity",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "The OneSignal App ID for your app.  Available in Keys & IDs.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "activity_id",
+            "in": "path",
+            "required": true,
+            "description": "Live Activity record ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subscription_id",
+            "in": "path",
+            "required": true,
+            "description": "Subscription ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
           }
         },
         "security": [
