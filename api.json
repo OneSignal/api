@@ -2737,7 +2737,7 @@
         ]
       }
     },
-    "/players/csv_export?app_id={app_id}": {
+    "/players/csv_export": {
       "post": {
         "operationId": "export_players",
         "summary": "CSV export",
@@ -2745,7 +2745,7 @@
         "parameters": [
           {
             "name": "app_id",
-            "in": "path",
+            "in": "query",
             "required": true,
             "description": "The app ID that you want to export devices from",
             "schema": {
