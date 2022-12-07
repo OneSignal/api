@@ -1640,13 +1640,15 @@
           }]
       },
       "IdentityObject": {
-        "type": "object"
+        "type": "object",
+        "additionalProperties": true
       },
       "PropertiesObject": {
         "type": "object",
         "properties": {
           "tags": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true
           },
           "language": {
             "type": "string"
