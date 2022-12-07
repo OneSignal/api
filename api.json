@@ -1705,7 +1705,6 @@
           }
         }
       },
-
       "SubscriptionObject": {
         "type": "object",
         "properties": {
@@ -1885,7 +1884,6 @@
           }
         }
       },
-
       "UpdatePlayerTagsSuccessResponse": {
         "type": "object",
         "properties": {
@@ -2061,6 +2059,25 @@
                 }
               }
             }
+          }
+        }
+      },
+      "CreateSubscriptionRequestBody": {
+        "type": "object",
+        "properties": {
+          "subscription": {
+            "$ref": "#/components/schemas/SubscriptionObject"
+          },
+          "retain_previous_owner": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UpdateSubscriptionRequestBody": {
+        "type": "object",
+        "properties": {
+          "subscription": {
+            "$ref": "#/components/schemas/SubscriptionObject"
           }
         }
       }
@@ -3183,15 +3200,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "subscription": {
-                    "$ref": "#/components/schemas/SubscriptionObject"
-                  },
-                  "retain_previous_owner": {
-                    "type": "boolean"
-                  }
-                }
+                "$ref": "#/components/schemas/CreateSubscriptionRequestBody"
               }
             }
           }
@@ -3262,12 +3271,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "subscription": {
-                    "$ref": "#/components/schemas/SubscriptionObject"
-                  }
-                }
+                "$ref": "#/components/schemas/UpdateSubscriptionRequestBody"
               }
             }
           }
