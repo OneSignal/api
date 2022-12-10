@@ -1799,12 +1799,6 @@
                 "type": "boolean"
               }
             }
-          },
-          "subscription_ids": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           }
         }
       },
