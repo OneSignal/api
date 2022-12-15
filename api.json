@@ -869,6 +869,17 @@
                 "writeOnly": true,
                 "nullable": true
               },
+              "email_preheader": {
+                "type": "string",
+                "description": "Channel: Email\nThe preheader text of the email.\nPreheader is the preview text displayed immediately after an email subject that provides additional context about the email content.\nIf not specified, will default to null.\n",
+                "writeOnly": true,
+                "nullable": true
+              },
+              "include_unsubscribed": {
+                "type": "boolean",
+                "description": "Channel: Email\nDefault is `false`. This field is used to send transactional notifications. If set to `true`, this notification will also be sent to unsubscribed emails. If a `template_id` is provided, the `include_unsubscribed` value from the template will be inherited. If you are using a third-party ESP, this field requires the ESP's list of unsubscribed emails to be cleared.",
+                "writeOnly": true
+              },
               "sms_from": {
                 "type": "string",
                 "description": "Channel: SMS\nPhone Number used to send SMS. Should be a registered Twilio phone number in E.164 format.\n",
