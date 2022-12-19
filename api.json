@@ -1638,6 +1638,66 @@
             "$ref": "#/components/schemas/NoSubscribersError"
           }]
       },
+      "BadRequestError": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "UpdateLiveActivityRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Type of live activity",
+            "enum": [
+              "headings",
+              "contents",
+              "ios_sound",
+              "priority_level"
+            ]
+          },
+          "event": {
+            "type": "string",
+            "enum": [
+              "update",
+              "end"
+            ]
+          },
+          "event_updates": {
+            "type": "object"
+          },
+          "dismiss_at": {
+            "type": "number",
+            "description": "Timestamp; only allowed if event is \"end\""
+          }
+        },
+        "required": [
+          "name",
+          "event",
+          "event_updates"
+        ]
+      },
+      "BeginLiveActivityRequest": {
+        "type": "object",
+        "properties": {
+          "push_token": {
+            "type": "string"
+          },
+          "subscription_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "push_token",
+          "subscription_id"
+        ]
+      },
       "CreateNotificationSuccessResponse": {
         "type": "object",
         "properties": {
@@ -1649,7 +1709,8 @@
             "description": "Estimated number of subscribers targetted by notification."
           },
           "external_id": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "errors": {
             "$ref": "#/components/schemas/Notification200Errors"
@@ -1659,17 +1720,6 @@
           "id",
           "recipients"
         ]
-      },
-      "CreateNotificationBadRequestResponse": {
-        "type": "object",
-        "properties": {
-          "errors": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
       },
       "CancelNotificationSuccessResponse": {
         "type": "object",
@@ -1690,21 +1740,6 @@
           }
         }
       },
-      "NotificationHistoryBadRequestResponse": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "string"
-          },
-          "errors": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-
       "UpdatePlayerTagsSuccessResponse": {
         "type": "object",
         "properties": {
@@ -1722,20 +1757,6 @@
           "id": {
             "type": "string",
             "description": "UUID of created segment"
-          }
-        }
-      },
-      "CreateSegmentBadRequestResponse": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "errors": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           }
         }
       },
@@ -1758,17 +1779,6 @@
         "properties": {
           "success": {
             "type": "boolean"
-          }
-        }
-      },
-      "DeleteSegmentBadRequestResponse": {
-        "type": "object",
-        "properties": {
-          "erorrs": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           }
         }
       },
@@ -1799,17 +1809,6 @@
           }
         }
       },
-      "DeletePlayerBadRequestResponse": {
-        "type": "object",
-        "properties": {
-          "erorrs": {
-            "type": "array",
-            "items": {
-              "type": "boolean"
-            }
-          }
-        }
-      },
       "DeletePlayerNotFoundResponse": {
         "type": "object",
         "properties": {
@@ -1834,8 +1833,16 @@
           }
         }
       },
-      "ExportPlayersBadRequestResponse": {
-        "type": "object"
+      "UpdateLiveActivitySuccessResponse": {
+        "type": "object",
+        "properties": {
+          "notification_id": {
+            "type": "string"
+          },
+          "errors": {
+            "$ref": "#/components/schemas/Notification200Errors"
+          }
+        }
       }
     }
   },
@@ -1898,6 +1905,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1936,7 +1953,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateNotificationBadRequestResponse"
+                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
@@ -1982,6 +1999,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2022,6 +2049,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2043,6 +2080,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Apps"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
@@ -2078,6 +2125,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2110,6 +2167,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
@@ -2153,6 +2220,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
@@ -2228,7 +2305,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NotificationHistoryBadRequestResponse"
+                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
@@ -2293,6 +2370,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2344,7 +2431,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateSegmentBadRequestResponse"
+                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
@@ -2408,7 +2495,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DeleteSegmentBadRequestResponse"
+                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
@@ -2502,6 +2589,193 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      }
+    },
+    "/apps/{app_id}/live_activities/{activity_id}/notifications": {
+      "post": {
+        "operationId": "update_live_activity",
+        "summary": "Update a Live Activity via Push",
+        "description": "Updates a specified live activity.",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "The OneSignal App ID for your app.  Available in Keys & IDs.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "activity_id",
+            "in": "path",
+            "required": true,
+            "description": "Live Activity record ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLiveActivityRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateLiveActivitySuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      }
+    },
+    "/apps/{app_id}/live_activities/{activity_id}/token": {
+      "post": {
+        "operationId": "begin_live_activity",
+        "summary": "Start Live Activity",
+        "description": "Starts a Live Activity",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "The OneSignal App ID for your app.  Available in Keys & IDs.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "activity_id",
+            "in": "path",
+            "required": true,
+            "description": "Live Activity record ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BeginLiveActivityRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      }
+    },
+    "/apps/{app_id}/live_activities/{activity_id}/token/{subscription_id}": {
+      "delete": {
+        "operationId": "end_live_activity",
+        "summary": "Stop Live Activity",
+        "description": "Stops a Live Activity",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "The OneSignal App ID for your app.  Available in Keys & IDs.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "activity_id",
+            "in": "path",
+            "required": true,
+            "description": "Live Activity record ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subscription_id",
+            "in": "path",
+            "required": true,
+            "description": "Subscription ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2555,6 +2829,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2584,6 +2868,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CreatePlayerSuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
@@ -2637,7 +2931,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DeletePlayerBadRequestResponse"
+                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
@@ -2702,6 +2996,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2742,6 +3046,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UpdatePlayerSuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
@@ -2813,7 +3127,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExportPlayersBadRequestResponse"
+                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
