@@ -1786,8 +1786,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "format": "uuid"
+            "type": "string"
           },
           "type": {
             "type": "string",
@@ -2039,98 +2038,98 @@
             "$ref": "#/components/schemas/Notification200Errors"
           }
         }
-      }
-    },
-    "CreateUserConflictResponse": {
-      "type": "object",
-      "properties": {
-        "errors": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "meta": {
-                "type": "object",
-                "properties": {
-                  "conflicting_aliases": {
-                    "type": "object"
+      },
+      "CreateUserConflictResponse": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "meta": {
+                  "type": "object",
+                  "properties": {
+                    "conflicting_aliases": {
+                      "type": "object"
+                    }
                   }
                 }
               }
             }
           }
         }
-      }
-    },
-    "IdentifyUserConflictResponse": {
-      "type": "object",
-      "properties": {
-        "errors": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "code": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
+      },
+      "IdentifyUserConflictResponse": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                }
               }
             }
           }
         }
-      }
-    },
-    "CreateSubscriptionRequestBody": {
-      "type": "object",
-      "properties": {
-        "subscription": {
-          "$ref": "#/components/schemas/SubscriptionObject"
-        },
-        "retain_previous_owner": {
-          "type": "boolean"
+      },
+      "CreateSubscriptionRequestBody": {
+        "type": "object",
+        "properties": {
+          "subscription": {
+            "$ref": "#/components/schemas/SubscriptionObject"
+          },
+          "retain_previous_owner": {
+            "type": "boolean"
+          }
         }
-      }
-    },
-    "UpdateSubscriptionRequestBody": {
-      "type": "object",
-      "properties": {
-        "subscription": {
-          "$ref": "#/components/schemas/SubscriptionObject"
+      },
+      "UpdateSubscriptionRequestBody": {
+        "type": "object",
+        "properties": {
+          "subscription": {
+            "$ref": "#/components/schemas/SubscriptionObject"
+          }
         }
-      }
-    },
-    "TransferSubscriptionRequestBody": {
-      "type": "object",
-      "properties": {
-        "identity": {
-          "$ref": "#/components/schemas/IdentityObject"
-        },
-        "retain_previous_owner": {
-          "type": "boolean",
-          "description": "The request must specify whether the subscription’s previous user should be retained. If so and the subscription is the last subscription for the previous user, then an orphan user will be created. This only applies if the subscription is the previous user’s only subscription. If the previous user had other subscriptions, nothing happens to the user."
+      },
+      "TransferSubscriptionRequestBody": {
+        "type": "object",
+        "properties": {
+          "identity": {
+            "$ref": "#/components/schemas/IdentityObject"
+          },
+          "retain_previous_owner": {
+            "type": "boolean",
+            "description": "The request must specify whether the subscription’s previous user should be retained. If so and the subscription is the last subscription for the previous user, then an orphan user will be created. This only applies if the subscription is the previous user’s only subscription. If the previous user had other subscriptions, nothing happens to the user."
+          }
         }
-      }
-    },
-    "UserIdentityRequestBody": {
-      "type": "object",
-      "properties": {
-        "identity": {
-          "$ref": "#/components/schemas/IdentityObject"
+      },
+      "UserIdentityRequestBody": {
+        "type": "object",
+        "properties": {
+          "identity": {
+            "$ref": "#/components/schemas/IdentityObject"
+          }
         }
-      }
-    },
-    "UserIdentityResponse": {
-      "type": "object",
-      "properties": {
-        "identity": {
-          "$ref": "#/components/schemas/IdentityObject"
+      },
+      "UserIdentityResponse": {
+        "type": "object",
+        "properties": {
+          "identity": {
+            "$ref": "#/components/schemas/IdentityObject"
+          }
         }
       }
     }
@@ -2357,6 +2356,82 @@
         ]
       }
     },
+    "/notifications/{notification_id}/history": {
+      "post": {
+        "operationId": "get_notification_history",
+        "summary": "Notification History",
+        "description": "-> View the devices sent a message - OneSignal Paid Plan Required This method will return all devices that were sent the given notification_id of an Email or Push Notification if used within 7 days of the date sent. After 7 days of the sending date, the message history data will be unavailable. After a successful response is received, the destination url may be polled until the file becomes available. Most exports are done in ~1-3 minutes, so setting a poll interval of 10 seconds should be adequate. For use cases that are not meant to be consumed by a script, an email will be sent to the supplied email address. &#x1F6A7; Requirements A OneSignal Paid Plan. Turn on Send History via OneSignal API in Settings -> Analytics. Cannot get data before this was turned on. Must be called within 7 days after sending the message. Messages targeting under 1000 recipients will not have \"sent\" events recorded, but will show \"clicked\" events. Requires your OneSignal App's REST API Key, available in Keys & IDs.",
+        "parameters": [
+          {
+            "name": "notification_id",
+            "in": "path",
+            "required": true,
+            "description": "The \"id\" of the message found in the Notification object",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "get_notification_request_body",
+                "type": "object",
+                "required": [
+                  "id"
+                ],
+                "properties": {
+                  "events": {
+                    "type": "string",
+                    "description": "-> \"sent\" - All the devices by player_id that were sent the specified notification_id.  Notifications targeting under 1000 recipients will not have \"sent\" events recorded, but will show \"clicked\" events. \"clicked\" - All the devices by `player_id` that clicked the specified notification_id.",
+                    "enum": [
+                      "sent",
+                      "clicked"
+                    ]
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "The email address you would like the report sent."
+                  },
+                  "app_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationHistorySuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      }
+    },
     "/apps": {
       "get": {
         "operationId": "get_apps",
@@ -2527,153 +2602,6 @@
         "security": [
           {
             "user_key": []
-          }
-        ]
-      }
-    },
-    "/notifications/{notification_id}/history": {
-      "post": {
-        "operationId": "get_notification_history",
-        "summary": "Notification History",
-        "description": "-> View the devices sent a message - OneSignal Paid Plan Required This method will return all devices that were sent the given notification_id of an Email or Push Notification if used within 7 days of the date sent. After 7 days of the sending date, the message history data will be unavailable. After a successful response is received, the destination url may be polled until the file becomes available. Most exports are done in ~1-3 minutes, so setting a poll interval of 10 seconds should be adequate. For use cases that are not meant to be consumed by a script, an email will be sent to the supplied email address. &#x1F6A7; Requirements A OneSignal Paid Plan. Turn on Send History via OneSignal API in Settings -> Analytics. Cannot get data before this was turned on. Must be called within 7 days after sending the message. Messages targeting under 1000 recipients will not have \"sent\" events recorded, but will show \"clicked\" events. Requires your OneSignal App's REST API Key, available in Keys & IDs.",
-        "parameters": [
-          {
-            "name": "notification_id",
-            "in": "path",
-            "required": true,
-            "description": "The \"id\" of the message found in the Notification object",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "title": "get_notification_request_body",
-                "type": "object",
-                "required": [
-                  "id"
-                ],
-                "properties": {
-                  "events": {
-                    "type": "string",
-                    "description": "-> \"sent\" - All the devices by player_id that were sent the specified notification_id.  Notifications targeting under 1000 recipients will not have \"sent\" events recorded, but will show \"clicked\" events. \"clicked\" - All the devices by `player_id` that clicked the specified notification_id.",
-                    "enum": [
-                      "sent",
-                      "clicked"
-                    ]
-                  },
-                  "email": {
-                    "type": "string",
-                    "description": "The email address you would like the report sent."
-                  },
-                  "app_id": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotificationHistorySuccessResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "app_key": []
-          }
-        ]
-      }
-    },
-    "/apps/{app_id}/users/{external_user_id}": {
-      "put": {
-        "operationId": "update_player_tags",
-        "summary": "Edit tags with external user id",
-        "description": "Update an existing device's tags in one of your OneSignal apps using the External User ID.\nWarning - Android SDK Data Synchronization\nTags added through the Android SDK tagging methods may not update if using the API to change or update the same tag.\nFor example, if you use SDK method sendTag(\"key\", \"value1\") then update the tag value to \"value2\" with this API endpoint. You will not be able to set the value back to \"value1\" through the SDK, you will need to change it to something different through the SDK to be reset.\nRecommendations if using this Endpoint on Android Mobile Apps:\n1 - Do not use the same tag keys for SDK and API updates\n2 - If you want to use the same key for both SDK and API updates, call the SDK getTags method first to update the device's tags.\nThis is only applicable on the Android Mobile App SDKs.\n&#128216;\nDeleting Tags\nTo delete a tag, include its key and set its value to blank. Omitting a key/value will not delete it.\nFor example, if I wanted to delete two existing tags rank and category while simultaneously adding a new tag class, the tags JSON would look like the following:\n\"tags\": {\n   \"rank\": \"\",\n   \"category\": \"\",\n   \"class\": \"my_new_value\"\n}\n",
-        "parameters": [
-          {
-            "name": "app_id",
-            "in": "path",
-            "required": true,
-            "description": "The OneSignal App ID the user record is found under.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "external_user_id",
-            "in": "path",
-            "required": true,
-            "description": "The External User ID mapped to teh device record in OneSignal.  Must be actively set on the device to be updated.",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "title": "update_player_tags_request_body",
-                "type": "object",
-                "properties": {
-                  "tags": {
-                    "type": "object",
-                    "description": "Custom tags for the device record.  Only support string key value pairs.  Does not support arrays or other nested objects.  Example `{\"foo\":\"bar\",\"this\":\"that\"}`.\nLimitations:\n- 100 tags per call\n- Android SDK users: tags cannot be removed or changed via API if set through SDK sendTag methods.\nRecommended to only tag devices with 1 kilobyte of ata\nPlease consider using your own Database to save more than 1 kilobyte of data.  See: Internal Database & CRM\n"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdatePlayerTagsSuccessResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "app_key": []
           }
         ]
       }
@@ -3074,361 +3002,6 @@
         ]
       }
     },
-    "/players": {
-      "get": {
-        "operationId": "get_players",
-        "summary": "View devices",
-        "description": "View the details of multiple devices in one of your OneSignal apps\nUnavailable for Apps Over 80,000 Users\nFor performance reasons, this method is not available for larger apps. Larger apps should use the CSV export API endpoint, which is much more performant.\n",
-        "parameters": [
-          {
-            "in": "query",
-            "name": "app_id",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "The app ID that you want to view players from"
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "schema": {
-              "type": "integer"
-            },
-            "required": false,
-            "description": "How many devices to return. Max is 300. Default is 300"
-          },
-          {
-            "in": "query",
-            "name": "offset",
-            "schema": {
-              "type": "integer"
-            },
-            "required": false,
-            "description": "Result offset. Default is 0. Results are sorted by id;"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PlayerSlice"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "app_key": []
-          }
-        ]
-      },
-      "post": {
-        "operationId": "create_player",
-        "summary": "Add a device",
-        "description": "Register a new device to one of your OneSignal apps\n&#x1F6A7;\nDon't use this\nThis API endpoint is designed to be used from our open source Mobile and Web Push SDKs. It is not designed for developers to use it directly, unless instructed to do so by OneSignal support.\nIf you use this method instead of our SDKs, many OneSignal features such as conversion tracking, timezone tracking, language detection, and rich-push won't work out of the box. It will also make it harder to identify possible setup issues.\nThis method is used to register a new device with OneSignal.\nIf a device is already registered with the specified identifier, then this will update the existing device record instead of creating a new one.\nThe returned player is a player / user ID. Use the returned ID to send push notifications to this specific user later, or to include this player when sending to a set of users.\n&#x1F6A7;\niOS\nMust set test_type to 1 when building your iOS app as development. Omit this field in your production app builds.\n",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Player"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CreatePlayerSuccessResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "app_key": []
-          }
-        ]
-      }
-    },
-    "/players/{player_id}": {
-      "delete": {
-        "operationId": "delete_player",
-        "summary": "Delete a user record",
-        "description": "Delete player - Required:\nUsed to delete a single, specific Player ID record from a specific OneSignal app.\n",
-        "parameters": [
-          {
-            "name": "app_id",
-            "in": "query",
-            "required": true,
-            "description": "The OneSignal App ID for your app.  Available in Keys & IDs.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "player_id",
-            "in": "path",
-            "required": true,
-            "description": "The OneSignal player_id",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeletePlayerSuccessResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DeletePlayerNotFoundResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "app_key": []
-          }
-        ]
-      },
-      "get": {
-        "operationId": "get_player",
-        "summary": "View device",
-        "description": "View the details of an existing device in one of your OneSignal apps",
-        "parameters": [
-          {
-            "name": "app_id",
-            "in": "query",
-            "required": true,
-            "description": "Your app_id for this device",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "player_id",
-            "in": "path",
-            "required": true,
-            "description": "Player's OneSignal ID",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "email_auth_hash",
-            "in": "query",
-            "required": false,
-            "description": "Email - Only required if you have enabled Identity Verification and device_type is email (11).",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Player"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "app_key": []
-          }
-        ]
-      },
-      "put": {
-        "operationId": "update_player",
-        "summary": "Edit device",
-        "description": "Update an existing device in one of your OneSignal apps",
-        "parameters": [
-          {
-            "name": "player_id",
-            "in": "path",
-            "required": true,
-            "description": "Player's OneSignal ID",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Player"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdatePlayerSuccessResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "app_key": []
-          }
-        ]
-      }
-    },
-    "/players/csv_export?app_id={app_id}": {
-      "post": {
-        "operationId": "export_players",
-        "summary": "CSV export",
-        "description": "Generate a compressed CSV export of all of your current user data\nThis method can be used to generate a compressed CSV export of all of your current user data. It is a much faster alternative than retrieving this data using the /players API endpoint.\nThe file will be compressed using GZip.\nThe file may take several minutes to generate depending on the number of users in your app.\nThe URL generated will be available for 3 days and includes random v4 uuid as part of the resource name to be unguessable.\n&#x1F6A7;\n403 Error Responses          You can test if it is complete by making a GET request to the csv_file_url value. This file may take time to generate depending on how many device records are being pulled. If the file is not ready, a 403 error will be returned. Otherwise the file itself will be returned.\n&#x1F6A7;\nRequires Authentication Key\nRequires your OneSignal App's REST API Key, available in Keys & IDs.\n&#x1F6A7;\nConcurrent Exports\nOnly one concurrent export is allowed per OneSignal account. Please ensure you have successfully downloaded the .csv.gz file before exporting another app.\nCSV File Format:\n- Default Columns:\n  | Field | Details |\n  | --- | --- |\n  | id | OneSignal Player Id |\n  | identifier | Push Token |\n  | session_count | Number of times they visited the app or site\n  | language | Device language code |\n  | timezone | Number of seconds away from UTC. Example: -28800 |\n  | game_version | Version of your mobile app gathered from Android Studio versionCode in your App/build.gradle and iOS uses kCFBundleVersionKey in Xcode. |\n  | device_os | Device Operating System Version. Example: 80 = Chrome 80, 9 = Android 9 |\n  | device_type | Device Operating System Type |\n  | device_model | Device Hardware String Code. Example: Mobile Web Subscribers will have `Linux armv` |\n  | ad_id | Based on the Google Advertising Id for Android, identifierForVendor for iOS. OptedOut means user turned off Advertising tracking on the device. |\n  | tags | Current OneSignal Data Tags on the device. |\n  | last_active | Date and time the user last opened the mobile app or visited the site. |\n  | playtime | Total amount of time in seconds the user had the mobile app open. |\n  | amount_spent | \tMobile only - amount spent in USD on In-App Purchases. | \n  | created_at | Date and time the device record was created in OneSignal. Mobile - first time they opened the app with OneSignal SDK. Web - first time the user subscribed to the site. |\n  | invalid_identifier | t = unsubscribed, f = subscibed |\n  | badge_count | Current number of badges on the device |\n- Extra Columns:\n  | Field | Details |\n  | --- | --- |\n  | external_user_id | Your User Id set on the device |\n  | notification_types | Notification types |\n  | location | Location points (Latitude and Longitude) set on the device. |\n  | country | Country code |\n  | rooted | Android device rooted or not |\n  | ip | IP Address of the device if being tracked. See Handling Personal Data. |\n  | web_auth | Web Only authorization key. |\n  | web_p256 | Web Only p256 key. |\n",
-        "parameters": [
-          {
-            "name": "app_id",
-            "in": "path",
-            "required": true,
-            "description": "The app ID that you want to export devices from",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "title": "export_players_request_body",
-                "type": "object",
-                "properties": {
-                  "extra_fields": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "description": "Additional fields that you wish to include. Currently supports location, country, rooted, notification_types, ip, external_user_id, web_auth, and web_p256."
-                  },
-                  "last_active_since": {
-                    "type": "string",
-                    "description": "Export all devices with a last_active timestamp greater than this time.  Unixtime in seconds."
-                  },
-                  "segment_name": {
-                    "type": "string",
-                    "description": "Export all devices belonging to the segment."
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExportPlayersSuccessResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "app_key": []
-          }
-        ]
-      }
-    },
     "/apps/{app_id}/users": {
       "post": {
         "operationId": "create_user",
@@ -3617,8 +3190,7 @@
             "in": "header",
             "name": "subscription_id",
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           },
           {
@@ -4238,6 +3810,361 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      }
+    },
+    "/players": {
+      "get": {
+        "operationId": "get_players",
+        "summary": "View devices",
+        "description": "View the details of multiple devices in one of your OneSignal apps\nUnavailable for Apps Over 80,000 Users\nFor performance reasons, this method is not available for larger apps. Larger apps should use the CSV export API endpoint, which is much more performant.\n",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "app_id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "The app ID that you want to view players from"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "required": false,
+            "description": "How many devices to return. Max is 300. Default is 300"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            },
+            "required": false,
+            "description": "Result offset. Default is 0. Results are sorted by id;"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayerSlice"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "create_player",
+        "summary": "Add a device",
+        "description": "Register a new device to one of your OneSignal apps\n&#x1F6A7;\nDon't use this\nThis API endpoint is designed to be used from our open source Mobile and Web Push SDKs. It is not designed for developers to use it directly, unless instructed to do so by OneSignal support.\nIf you use this method instead of our SDKs, many OneSignal features such as conversion tracking, timezone tracking, language detection, and rich-push won't work out of the box. It will also make it harder to identify possible setup issues.\nThis method is used to register a new device with OneSignal.\nIf a device is already registered with the specified identifier, then this will update the existing device record instead of creating a new one.\nThe returned player is a player / user ID. Use the returned ID to send push notifications to this specific user later, or to include this player when sending to a set of users.\n&#x1F6A7;\niOS\nMust set test_type to 1 when building your iOS app as development. Omit this field in your production app builds.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Player"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePlayerSuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      }
+    },
+    "/players/{player_id}": {
+      "delete": {
+        "operationId": "delete_player",
+        "summary": "Delete a user record",
+        "description": "Delete player - Required:\nUsed to delete a single, specific Player ID record from a specific OneSignal app.\n",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": true,
+            "description": "The OneSignal App ID for your app.  Available in Keys & IDs.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "player_id",
+            "in": "path",
+            "required": true,
+            "description": "The OneSignal player_id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletePlayerSuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletePlayerNotFoundResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "get_player",
+        "summary": "View device",
+        "description": "View the details of an existing device in one of your OneSignal apps",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": true,
+            "description": "Your app_id for this device",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "player_id",
+            "in": "path",
+            "required": true,
+            "description": "Player's OneSignal ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email_auth_hash",
+            "in": "query",
+            "required": false,
+            "description": "Email - Only required if you have enabled Identity Verification and device_type is email (11).",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Player"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      },
+      "put": {
+        "operationId": "update_player",
+        "summary": "Edit device",
+        "description": "Update an existing device in one of your OneSignal apps",
+        "parameters": [
+          {
+            "name": "player_id",
+            "in": "path",
+            "required": true,
+            "description": "Player's OneSignal ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Player"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdatePlayerSuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      }
+    },
+    "/players/csv_export?app_id={app_id}": {
+      "post": {
+        "operationId": "export_players",
+        "summary": "CSV export",
+        "description": "Generate a compressed CSV export of all of your current user data\nThis method can be used to generate a compressed CSV export of all of your current user data. It is a much faster alternative than retrieving this data using the /players API endpoint.\nThe file will be compressed using GZip.\nThe file may take several minutes to generate depending on the number of users in your app.\nThe URL generated will be available for 3 days and includes random v4 uuid as part of the resource name to be unguessable.\n&#x1F6A7;\n403 Error Responses          You can test if it is complete by making a GET request to the csv_file_url value. This file may take time to generate depending on how many device records are being pulled. If the file is not ready, a 403 error will be returned. Otherwise the file itself will be returned.\n&#x1F6A7;\nRequires Authentication Key\nRequires your OneSignal App's REST API Key, available in Keys & IDs.\n&#x1F6A7;\nConcurrent Exports\nOnly one concurrent export is allowed per OneSignal account. Please ensure you have successfully downloaded the .csv.gz file before exporting another app.\nCSV File Format:\n- Default Columns:\n  | Field | Details |\n  | --- | --- |\n  | id | OneSignal Player Id |\n  | identifier | Push Token |\n  | session_count | Number of times they visited the app or site\n  | language | Device language code |\n  | timezone | Number of seconds away from UTC. Example: -28800 |\n  | game_version | Version of your mobile app gathered from Android Studio versionCode in your App/build.gradle and iOS uses kCFBundleVersionKey in Xcode. |\n  | device_os | Device Operating System Version. Example: 80 = Chrome 80, 9 = Android 9 |\n  | device_type | Device Operating System Type |\n  | device_model | Device Hardware String Code. Example: Mobile Web Subscribers will have `Linux armv` |\n  | ad_id | Based on the Google Advertising Id for Android, identifierForVendor for iOS. OptedOut means user turned off Advertising tracking on the device. |\n  | tags | Current OneSignal Data Tags on the device. |\n  | last_active | Date and time the user last opened the mobile app or visited the site. |\n  | playtime | Total amount of time in seconds the user had the mobile app open. |\n  | amount_spent | \tMobile only - amount spent in USD on In-App Purchases. | \n  | created_at | Date and time the device record was created in OneSignal. Mobile - first time they opened the app with OneSignal SDK. Web - first time the user subscribed to the site. |\n  | invalid_identifier | t = unsubscribed, f = subscibed |\n  | badge_count | Current number of badges on the device |\n- Extra Columns:\n  | Field | Details |\n  | --- | --- |\n  | external_user_id | Your User Id set on the device |\n  | notification_types | Notification types |\n  | location | Location points (Latitude and Longitude) set on the device. |\n  | country | Country code |\n  | rooted | Android device rooted or not |\n  | ip | IP Address of the device if being tracked. See Handling Personal Data. |\n  | web_auth | Web Only authorization key. |\n  | web_p256 | Web Only p256 key. |\n",
+        "parameters": [
+          {
+            "name": "app_id",
+            "in": "path",
+            "required": true,
+            "description": "The app ID that you want to export devices from",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "export_players_request_body",
+                "type": "object",
+                "properties": {
+                  "extra_fields": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Additional fields that you wish to include. Currently supports location, country, rooted, notification_types, ip, external_user_id, web_auth, and web_p256."
+                  },
+                  "last_active_since": {
+                    "type": "string",
+                    "description": "Export all devices with a last_active timestamp greater than this time.  Unixtime in seconds."
+                  },
+                  "segment_name": {
+                    "type": "string",
+                    "description": "Export all devices belonging to the segment."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportPlayersSuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
