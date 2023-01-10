@@ -2109,10 +2109,6 @@
         "properties": {
           "identity": {
             "$ref": "#/components/schemas/IdentityObject"
-          },
-          "retain_previous_owner": {
-            "type": "boolean",
-            "description": "The request must specify whether the subscription’s previous user should be retained. If so and the subscription is the last subscription for the previous user, then an orphan user will be created. This only applies if the subscription is the previous user’s only subscription. If the previous user had other subscriptions, nothing happens to the user."
           }
         }
       },
