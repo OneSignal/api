@@ -308,7 +308,8 @@
                   "type": "string"
                 }
               }
-            }
+            },
+            "nullable": true
           },
           "target_channel": {
             "type": "string",
@@ -1914,11 +1915,7 @@
           "errors": {
             "$ref": "#/components/schemas/Notification200Errors"
           }
-        },
-        "required": [
-          "id",
-          "recipients"
-        ]
+        }
       },
       "CancelNotificationSuccessResponse": {
         "type": "object",
