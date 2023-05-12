@@ -901,6 +901,12 @@
                 "items": {
                   "$ref": "#/components/schemas/Filter"
                 }
+              },
+              "custom_data": {
+                "type": "object",
+                "description": "Channel: All\nJSON object that can be used as a source of message personalization data for fields that support tag variable substitution.\nPush, SMS: Can accept up to 2048 bytes of valid JSON. Email: Can accept up to 10000 bytes of valid JSON.\nExample: {\"order_id\": 123, \"currency\": \"USD\", \"amount\": 25}\n",
+                "writeOnly": true,
+                "nullable": true
               }
             }
           },
