@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.2.1",
+    "version": "2.0.0",
     "title": "OneSignal",
     "description": "A powerful way to send personalized messages at scale and build effective customer engagement strategies. Learn more at onesignal.com",
     "contact": {
@@ -2622,7 +2622,7 @@
     },
     "/apps/{app_id}/segments": {
       "post": {
-        "operationId": "create_segments",
+        "operationId": "create_segment",
         "summary": "Create Segments",
         "description": "Create segments visible and usable in the dashboard and API - Required: OneSignal Paid Plan\nThe Create Segment method is used when you want your server to programmatically create a segment instead of using the OneSignal Dashboard UI. Just like creating Segments from the dashboard you can pass in filters with multiple \"AND\" or \"OR\" operator's.\n&#x1F6A7;\nDoes Not Update Segments\nThis endpoint will only create segments, it does not edit or update currently created Segments. You will need to use the Delete Segments endpoint and re-create it with this endpoint to edit.\n",
         "parameters": [
@@ -2687,7 +2687,7 @@
     },
     "/apps/{app_id}/segments/{segment_id}": {
       "delete": {
-        "operationId": "delete_segments",
+        "operationId": "delete_segment",
         "summary": "Delete Segments",
         "description": "Delete segments (not user devices) - Required: OneSignal Paid Plan\nYou can delete a segment under your app by calling this API. You must provide an API key in the Authorization header that has admin access on the app.\nThe segment_id can be found in the URL of the segment when viewing it in the dashboard.\n",
         "parameters": [
@@ -2903,119 +2903,6 @@
         ]
       }
     },
-    "/apps/{app_id}/live_activities/{activity_id}/token": {
-      "post": {
-        "operationId": "begin_live_activity",
-        "summary": "Start Live Activity",
-        "description": "Starts a Live Activity",
-        "parameters": [
-          {
-            "name": "app_id",
-            "in": "path",
-            "required": true,
-            "description": "The OneSignal App ID for your app.  Available in Keys & IDs.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "activity_id",
-            "in": "path",
-            "required": true,
-            "description": "Live Activity record ID",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BeginLiveActivityRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "app_key": []
-          }
-        ]
-      }
-    },
-    "/apps/{app_id}/live_activities/{activity_id}/token/{subscription_id}": {
-      "delete": {
-        "operationId": "end_live_activity",
-        "summary": "Stop Live Activity",
-        "description": "Stops a Live Activity",
-        "parameters": [
-          {
-            "name": "app_id",
-            "in": "path",
-            "required": true,
-            "description": "The OneSignal App ID for your app.  Available in Keys & IDs.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "activity_id",
-            "in": "path",
-            "required": true,
-            "description": "Live Activity record ID",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "subscription_id",
-            "in": "path",
-            "required": true,
-            "description": "Subscription ID",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "app_key": []
-          }
-        ]
-      }
-    },
     "/apps/{app_id}/users": {
       "post": {
         "operationId": "create_user",
@@ -3082,6 +2969,7 @@
     "/apps/{app_id}/users/{external_user_id}": {
       "put": {
         "operationId": "update_player_tags",
+        "deprecated": true,
         "summary": "Edit tags with external user id",
         "description": "Update an existing device's tags in one of your OneSignal apps using the External User ID.\nWarning - Android SDK Data Synchronization\nTags added through the Android SDK tagging methods may not update if using the API to change or update the same tag.\nFor example, if you use SDK method sendTag(\"key\", \"value1\") then update the tag value to \"value2\" with this API endpoint. You will not be able to set the value back to \"value1\" through the SDK, you will need to change it to something different through the SDK to be reset.\nRecommendations if using this Endpoint on Android Mobile Apps:\n1 - Do not use the same tag keys for SDK and API updates\n2 - If you want to use the same key for both SDK and API updates, call the SDK getTags method first to update the device's tags.\nThis is only applicable on the Android Mobile App SDKs.\n&#128216;\nDeleting Tags\nTo delete a tag, include its key and set its value to blank. Omitting a key/value will not delete it.\nFor example, if I wanted to delete two existing tags rank and category while simultaneously adding a new tag class, the tags JSON would look like the following:\n\"tags\": {\n   \"rank\": \"\",\n   \"category\": \"\",\n   \"class\": \"my_new_value\"\n}\n",
         "parameters": [
@@ -3142,7 +3030,7 @@
     },
     "/apps/{app_id}/users/by/{alias_label}/{alias_id}": {
       "get": {
-        "operationId": "fetch_user",
+        "operationId": "get_user",
         "description": "Returns the User’s properties, Aliases, and Subscriptions.",
         "parameters": [
           {
@@ -3360,7 +3248,7 @@
         ]
       },
       "get": {
-        "operationId": "fetch_user_identity",
+        "operationId": "get_user_identity",
         "description": "Lists all Aliases for the User identified by (:alias_label, :alias_id).",
         "parameters": [
           {
@@ -3554,6 +3442,45 @@
       }
     },
     "/apps/{app_id}/subscriptions/{subscription_id}": {
+      "get": {
+        "operationId": "get_subscription",
+        "description": "View Subscription",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "app_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subscription_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionObject"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      },
       "patch": {
         "operationId": "update_subscription",
         "description": "Updates an existing Subscription’s properties.",
@@ -3631,7 +3558,7 @@
     },
     "/apps/{app_id}/subscriptions/{subscription_id}/user/identity": {
       "get": {
-        "operationId": "fetch_aliases",
+        "operationId": "get_aliases",
         "description": "Lists all Aliases for the User identified by :subscription_id.",
         "parameters": [
           {
@@ -3832,6 +3759,7 @@
     "/players": {
       "get": {
         "operationId": "get_players",
+        "deprecated": true,
         "summary": "View devices",
         "description": "View the details of multiple devices in one of your OneSignal apps\nUnavailable for Apps Over 80,000 Users\nFor performance reasons, this method is not available for larger apps. Larger apps should use the CSV export API endpoint, which is much more performant.\n",
         "parameters": [
@@ -3893,6 +3821,7 @@
       },
       "post": {
         "operationId": "create_player",
+        "deprecated": true,
         "summary": "Add a device",
         "description": "Register a new device to one of your OneSignal apps\n&#x1F6A7;\nDon't use this\nThis API endpoint is designed to be used from our open source Mobile and Web Push SDKs. It is not designed for developers to use it directly, unless instructed to do so by OneSignal support.\nIf you use this method instead of our SDKs, many OneSignal features such as conversion tracking, timezone tracking, language detection, and rich-push won't work out of the box. It will also make it harder to identify possible setup issues.\nThis method is used to register a new device with OneSignal.\nIf a device is already registered with the specified identifier, then this will update the existing device record instead of creating a new one.\nThe returned player is a player / user ID. Use the returned ID to send push notifications to this specific user later, or to include this player when sending to a set of users.\n&#x1F6A7;\niOS\nMust set test_type to 1 when building your iOS app as development. Omit this field in your production app builds.\n",
         "requestBody": {
@@ -3937,6 +3866,7 @@
     "/players/{player_id}": {
       "delete": {
         "operationId": "delete_player",
+        "deprecated": true,
         "summary": "Delete a user record",
         "description": "Delete player - Required:\nUsed to delete a single, specific Player ID record from a specific OneSignal app.\n",
         "parameters": [
@@ -3999,6 +3929,7 @@
       },
       "get": {
         "operationId": "get_player",
+        "deprecated": true,
         "summary": "View device",
         "description": "View the details of an existing device in one of your OneSignal apps",
         "parameters": [
@@ -4060,6 +3991,7 @@
       },
       "put": {
         "operationId": "update_player",
+        "deprecated": true,
         "summary": "Edit device",
         "description": "Update an existing device in one of your OneSignal apps",
         "parameters": [
@@ -4115,6 +4047,7 @@
     "/players/csv_export?app_id={app_id}": {
       "post": {
         "operationId": "export_players",
+        "deprecated": true,
         "summary": "CSV export",
         "description": "Generate a compressed CSV export of all of your current user data\nThis method can be used to generate a compressed CSV export of all of your current user data. It is a much faster alternative than retrieving this data using the /players API endpoint.\nThe file will be compressed using GZip.\nThe file may take several minutes to generate depending on the number of users in your app.\nThe URL generated will be available for 3 days and includes random v4 uuid as part of the resource name to be unguessable.\n&#x1F6A7;\n403 Error Responses          You can test if it is complete by making a GET request to the csv_file_url value. This file may take time to generate depending on how many device records are being pulled. If the file is not ready, a 403 error will be returned. Otherwise the file itself will be returned.\n&#x1F6A7;\nRequires Authentication Key\nRequires your OneSignal App's REST API Key, available in Keys & IDs.\n&#x1F6A7;\nConcurrent Exports\nOnly one concurrent export is allowed per OneSignal account. Please ensure you have successfully downloaded the .csv.gz file before exporting another app.\nCSV File Format:\n- Default Columns:\n  | Field | Details |\n  | --- | --- |\n  | id | OneSignal Player Id |\n  | identifier | Push Token |\n  | session_count | Number of times they visited the app or site\n  | language | Device language code |\n  | timezone | Number of seconds away from UTC. Example: -28800 |\n  | game_version | Version of your mobile app gathered from Android Studio versionCode in your App/build.gradle and iOS uses kCFBundleVersionKey in Xcode. |\n  | device_os | Device Operating System Version. Example: 80 = Chrome 80, 9 = Android 9 |\n  | device_type | Device Operating System Type |\n  | device_model | Device Hardware String Code. Example: Mobile Web Subscribers will have `Linux armv` |\n  | ad_id | Based on the Google Advertising Id for Android, identifierForVendor for iOS. OptedOut means user turned off Advertising tracking on the device. |\n  | tags | Current OneSignal Data Tags on the device. |\n  | last_active | Date and time the user last opened the mobile app or visited the site. |\n  | playtime | Total amount of time in seconds the user had the mobile app open. |\n  | amount_spent | \tMobile only - amount spent in USD on In-App Purchases. | \n  | created_at | Date and time the device record was created in OneSignal. Mobile - first time they opened the app with OneSignal SDK. Web - first time the user subscribed to the site. |\n  | invalid_identifier | t = unsubscribed, f = subscibed |\n  | badge_count | Current number of badges on the device |\n- Extra Columns:\n  | Field | Details |\n  | --- | --- |\n  | external_user_id | Your User Id set on the device |\n  | notification_types | Notification types |\n  | location | Location points (Latitude and Longitude) set on the device. |\n  | country | Country code |\n  | rooted | Android device rooted or not |\n  | ip | IP Address of the device if being tracked. See Handling Personal Data. |\n  | web_auth | Web Only authorization key. |\n  | web_p256 | Web Only p256 key. |\n",
         "parameters": [
