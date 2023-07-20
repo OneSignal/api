@@ -2046,6 +2046,14 @@
           }
         }
       },
+      "ExportEventsSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "csv_file_url": {
+            "type": "string"
+          }
+        }
+      },
       "UpdateLiveActivitySuccessResponse": {
         "type": "object",
         "properties": {
@@ -4168,6 +4176,70 @@
           },
           "400": {
             "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "app_key": []
+          }
+        ]
+      }
+    },
+    "/notifications/{notification_id}/export_events?app_id={app_id}": {
+      "post": {
+        "operationId": "export_events",
+        "summary": "Export CSV of Events",
+        "description": "Generate a compressed CSV report of all of the events data for a notification.\nThis will return a URL immediately upon success but it may take several minutes for the CSV to become available at that URL depending on the volume of data. Only one export can be in-progress per OneSignal account at any given time.",
+        "parameters": [
+          {
+            "name": "notification_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the notification to export events from.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "app_id",
+            "in": "query",
+            "required": true,
+            "description": "The ID of the app that the notification belongs to.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportEventsSuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": {
