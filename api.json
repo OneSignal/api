@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.2.1",
+    "version": "1.2.2",
     "title": "OneSignal",
     "description": "A powerful way to send personalized messages at scale and build effective customer engagement strategies. Learn more at onesignal.com",
     "contact": {
@@ -1681,17 +1681,6 @@
             "$ref": "#/components/schemas/NoSubscribersError"
           }]
       },
-      "BadRequestError": {
-        "type": "object",
-        "properties": {
-          "errors": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
       "UpdateLiveActivityRequest": {
         "type": "object",
         "properties": {
@@ -2046,14 +2035,6 @@
           }
         }
       },
-      "ExportEventsSuccessResponse": {
-        "type": "object",
-        "properties": {
-          "csv_file_url": {
-            "type": "string"
-          }
-        }
-      },
       "UpdateLiveActivitySuccessResponse": {
         "type": "object",
         "properties": {
@@ -2092,7 +2073,7 @@
           }
         }
       },
-      "IdentifyUserConflictResponse": {
+      "GenericError": {
         "type": "object",
         "properties": {
           "errors": {
@@ -2221,7 +2202,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2263,7 +2254,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2315,7 +2316,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2365,7 +2376,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2441,7 +2462,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2475,7 +2506,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2517,7 +2558,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2562,7 +2613,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2615,7 +2676,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2670,7 +2741,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2681,6 +2752,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CreateSegmentConflictResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2734,7 +2815,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2745,6 +2826,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/DeleteSegmentNotFoundResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2834,7 +2925,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2898,7 +2999,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -2955,7 +3066,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -3011,7 +3132,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -3065,6 +3196,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CreateUserConflictResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -3139,6 +3280,26 @@
                 }
               }
             }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3185,6 +3346,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -3250,6 +3421,26 @@
                 }
               }
             }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3290,6 +3481,26 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
           }
         }
       }
@@ -3355,7 +3566,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IdentifyUserConflictResponse"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -3408,6 +3629,16 @@
                       "$ref": "#/components/schemas/IdentityObject"
                     }
                   }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -3470,6 +3701,26 @@
                       "$ref": "#/components/schemas/IdentityObject"
                     }
                   }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -3552,6 +3803,36 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Operation is not permitted due to user having the maximum number of subscriptions assigned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3596,6 +3877,26 @@
         "responses": {
           "202": {
             "description": "ACCEPTED"
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3628,6 +3929,26 @@
         "responses": {
           "202": {
             "description": "ACCEPTED"
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3724,7 +4045,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IdentifyUserConflictResponse"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -3779,6 +4110,26 @@
                 }
               }
             }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3825,6 +4176,16 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -3887,7 +4248,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -3929,7 +4300,27 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -3983,7 +4374,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -3994,6 +4385,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/DeletePlayerNotFoundResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -4054,7 +4455,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -4107,7 +4518,27 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
@@ -4123,7 +4554,7 @@
     "/players/csv_export?app_id={app_id}": {
       "post": {
         "operationId": "export_players",
-        "summary": "Export CSV of Players",
+        "summary": "CSV export",
         "description": "Generate a compressed CSV export of all of your current user data\nThis method can be used to generate a compressed CSV export of all of your current user data. It is a much faster alternative than retrieving this data using the /players API endpoint.\nThe file will be compressed using GZip.\nThe file may take several minutes to generate depending on the number of users in your app.\nThe URL generated will be available for 3 days and includes random v4 uuid as part of the resource name to be unguessable.\n&#x1F6A7;\n403 Error Responses          You can test if it is complete by making a GET request to the csv_file_url value. This file may take time to generate depending on how many device records are being pulled. If the file is not ready, a 403 error will be returned. Otherwise the file itself will be returned.\n&#x1F6A7;\nRequires Authentication Key\nRequires your OneSignal App's REST API Key, available in Keys & IDs.\n&#x1F6A7;\nConcurrent Exports\nOnly one concurrent export is allowed per OneSignal account. Please ensure you have successfully downloaded the .csv.gz file before exporting another app.\nCSV File Format:\n- Default Columns:\n  | Field | Details |\n  | --- | --- |\n  | id | OneSignal Player Id |\n  | identifier | Push Token |\n  | session_count | Number of times they visited the app or site\n  | language | Device language code |\n  | timezone | Number of seconds away from UTC. Example: -28800 |\n  | game_version | Version of your mobile app gathered from Android Studio versionCode in your App/build.gradle and iOS uses kCFBundleVersionKey in Xcode. |\n  | device_os | Device Operating System Version. Example: 80 = Chrome 80, 9 = Android 9 |\n  | device_type | Device Operating System Type |\n  | device_model | Device Hardware String Code. Example: Mobile Web Subscribers will have `Linux armv` |\n  | ad_id | Based on the Google Advertising Id for Android, identifierForVendor for iOS. OptedOut means user turned off Advertising tracking on the device. |\n  | tags | Current OneSignal Data Tags on the device. |\n  | last_active | Date and time the user last opened the mobile app or visited the site. |\n  | playtime | Total amount of time in seconds the user had the mobile app open. |\n  | amount_spent | \tMobile only - amount spent in USD on In-App Purchases. | \n  | created_at | Date and time the device record was created in OneSignal. Mobile - first time they opened the app with OneSignal SDK. Web - first time the user subscribed to the site. |\n  | invalid_identifier | t = unsubscribed, f = subscibed |\n  | badge_count | Current number of badges on the device |\n- Extra Columns:\n  | Field | Details |\n  | --- | --- |\n  | external_user_id | Your User Id set on the device |\n  | notification_types | Notification types |\n  | location | Location points (Latitude and Longitude) set on the device. |\n  | country | Country code |\n  | rooted | Android device rooted or not |\n  | ip | IP Address of the device if being tracked. See Handling Personal Data. |\n  | web_auth | Web Only authorization key. |\n  | web_p256 | Web Only p256 key. |\n",
         "parameters": [
           {
@@ -4179,71 +4610,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "app_key": []
-          }
-        ]
-      }
-    },
-    "/notifications/{notification_id}/export_events?app_id={app_id}": {
-      "post": {
-        "operationId": "export_events",
-        "summary": "Export CSV of Events",
-        "description": "Generate a compressed CSV report of all of the events data for a notification.\nThis will return a URL immediately upon success but it may take several minutes for the CSV to become available at that URL depending on the volume of data. Only one export can be in-progress per OneSignal account at any given time.",
-        "parameters": [
-          {
-            "name": "notification_id",
-            "in": "path",
-            "required": true,
-            "description": "The ID of the notification to export events from.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "app_id",
-            "in": "query",
-            "required": true,
-            "description": "The ID of the app that the notification belongs to.",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExportEventsSuccessResponse"
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "429": {
+            "description": "Rate Limit Exceeded",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
+                  "$ref": "#/components/schemas/GenericError"
                 }
               }
             }
