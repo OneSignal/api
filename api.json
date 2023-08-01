@@ -3197,6 +3197,16 @@
           }
         },
         "responses": {
+          "200": {
+            "description": "CREATED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
           "201": {
             "description": "CREATED",
             "content": {
