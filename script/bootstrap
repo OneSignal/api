@@ -38,3 +38,4 @@ elif [[ "$(uname)" = "Linux" ]]; then
 fi
 
 npm install -g jsonlint
+npm install -g ibm-openapi-validator

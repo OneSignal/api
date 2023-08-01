@@ -3,3 +3,4 @@
 set -exuo pipefail
 
 jsonlint -q api.json
+lint-openapi api.json
