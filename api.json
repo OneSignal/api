@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.2.2",
+    "version": "1.2.3",
     "title": "OneSignal",
     "description": "A powerful way to send personalized messages at scale and build effective customer engagement strategies. Learn more at onesignal.com",
     "contact": {
@@ -1757,10 +1757,10 @@
             "type": "string"
           },
           "first_active": {
-            "type": "number"
+            "type": "integer"
           },
           "last_active": {
-            "type": "number"
+            "type": "integer"
           },
           "amount_spent": {
             "type": "number"
@@ -1780,10 +1780,10 @@
         "type": "object",
         "properties": {
           "session_time": {
-            "type": "number"
+            "type": "integer"
           },
           "session_count": {
-            "type": "number"
+            "type": "integer"
           },
           "purchases": {
             "type": "array",
@@ -1824,13 +1824,13 @@
             "type": "boolean"
           },
           "notification_types": {
-            "type": "number"
+            "type": "integer"
           },
           "session_time": {
-            "type": "number"
+            "type": "integer"
           },
           "session_count": {
-            "type": "number"
+            "type": "integer"
           },
           "sdk": {
             "type": "string"
@@ -1845,7 +1845,7 @@
             "type": "boolean"
           },
           "test_type": {
-            "type": "number"
+            "type": "integer"
           },
           "app_version": {
             "type": "string"
