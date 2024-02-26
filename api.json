@@ -1366,7 +1366,7 @@
             "description": "The 3-letter ISO 4217 currency code. Required for correct storage and conversion of amount."
           },
           "count": {
-            "type": "number"
+            "type": "integer"
           }
         },
         "required": [
